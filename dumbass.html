@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dumbass In The Dark</title>
+  <meta name="description" content="Paroles de la chanson." />
+  <style>
+    :root {
+      --bg: #0b0c0f;
+      --fg: #e6e7ea;
+      --muted: #9aa0a6;
+      --card: #121318;
+      --accent: #6ee7b7;
+      --accent-2: #60a5fa;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    @media (prefers-color-scheme: light) {
+      :root {--bg:#f7f7fb; --fg:#111827; --muted:#6b7280; --card:#ffffff; --shadow:0 10px 30px rgba(2,8,23,.06)}
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.18), transparent 50%),
+                  radial-gradient(1200px 600px at 110% 10%, rgba(110,231,183,.18), transparent 50%),
+                  var(--bg);
+      background-image: url('fondfull.jpg');
+      background-size: cover;       /* pour que l'image remplisse tout l'espace */
+      color: var(--fg);
+      font-family: var(--font);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(16px, 4vw, 28px);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+
+    header { display: grid; gap: 8px; }
+    .title { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 800; letter-spacing: .2px; }
+    .artist { color: var(--muted); font-weight: 600; }
+
+    .controls {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px;
+    }
+    .controls input[type="search"] {
+      flex: 1 1 220px;
+      border: 1px solid color-mix(in oklab, var(--fg) 12%, transparent);
+      background: transparent;
+      color: var(--fg);
+      padding: 10px 12px; border-radius: 12px; outline: none;
+    }
+    .btn {
+      border: 1px solid color-mix(in oklab, var(--fg) 12%, transparent);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--card) 95%, var(--fg) 5%), var(--card));
+      color: var(--fg);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+
+    .lyrics {
+      margin-top: 18px;
+      font-size: var(--fs, 1.1rem);
+      white-space: pre-wrap;
+    }
+    .lyrics .verse { margin: 14px 0 18px; }
+    .lyrics .verse p { margin: 0; }
+
+    .meta { display: flex; gap: 8px; align-items: baseline; color: var(--muted); font-size: .95rem; }
+
+    .badge { padding: 4px 10px; border-radius: 999px; background: color-mix(in oklab, var(--accent) 18%, transparent); color: inherit; border: 1px solid color-mix(in oklab, var(--fg) 10%, transparent); }
+
+    mark { background: color-mix(in oklab, var(--accent-2) 35%, transparent); color: inherit; border-radius: 6px; padding: 0 2px; }
+
+    .footer { margin-top: 24px; color: var(--muted); font-size: .9rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+    /* Line numbers (optional toggle) */
+    .numbered .line { display: grid; grid-template-columns: 2ch auto; gap: .75ch; }
+    .numbered .line::before { content: attr(data-n); opacity: .45; text-align: right; }
+
+    /* Print */
+    @media print {
+      body { background: white; }
+      .card { box-shadow: none; }
+      .controls, .footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="title" id="title">Titre de la chanson</div>
+        <div class="artist" id="artist">Nom de l'artiste</div>
+      </header>
+
+      <main class="lyrics" id="lyricsContainer" aria-label="Paroles de la chanson"></main>
+
+      <div class="footer">
+      </div>
+    </div>
+  </div>
+
+  <!-- Données d'exemple : remplacez le contenu ci-dessous par votre chanson -->
+  <script type="application/json" id="lyrics-data">
+  {
+    "title": "Dumbass In The Dark",
+    "artist": "Bloogreen",
+    "lyrics": "Burning down your school,\n You think that’s so cool?\n Just copying your crew,\n All dumbasses like you.\n \n When the firemen arrive,\n You throw rocks at their ride.\n You’re dumber than a mule,\n With nothing in your skull!\n \n They’re here to help, you fight,\n What’s wrong inside your mind?\n Your cap’s way too tight,\n No brain left in sight.\n \n To be that deranged,\n Your wires got mis-arranged.\n No other way to say,\n You’re insane all the way.\n \n A lack of common sense,\n Can’t justify violence.\n Not the sharpest tool in the shed,\n But you don’t need to hurt instead.\n \n But in your case it’s clear,\n Some trauma’s brought you here.\n When you were a baby, you didn’t fall,\n Just got rocked a bit too close to the wall.\n \n Driving drunk in your ride,\n With a joint on the side,\n You knew you weren’t fine,\n Still crossed the line.\n \n You’re no bat with sonar keen,\n The sharpest guide there’s ever been.\n But yours works best in only one case:\n To slam straight into walls, headfirst in place.\n \n You wanted to show off\n On your big bad hog.\n Two hundred through the crowd,\n You’re reckless and loud.\n \n To act that way, you need an empty mindset,\n Just echoes rattling in your helmet.\n With such a void inside your head,\n You can’t reason, you just resonate.\n \n At ten you thought it was fun\n To curse at everyone.\n You’d even chase them down,\n To spread your stupid sound.\n \n You must’ve skipped a lot of school,\n To turn out such a fool.\n Your brain’s not running through,\n No hamster in the wheel for you!\n \n A lack of common sense,\n Can’t justify violence.\n Not the sharpest tool in the shed,\n But you don’t need to hurt instead.\n \n In your case it’s plain to see,\n Head traumas left their legacy.\n Bad idea to go trampolining\n In a basement with a low ceiling.\n \n The other day inside ER’s hall,\n You lost your mind, no sense at all.\n They passed you by, ‘cause blood was near,\n But you went mad and raged in fear.\n \n You cracked your fists on nurse and doc,\n Like some dumb beast that loves to shock.\n No brains, just violence on repeat,\n A pile of garbage on two feet.\n \n A lack of common sense,\n Can’t justify violence.\n Not the sharpest tool in the shed,\n But you don’t need to hurt instead.\n \n You fried your brain when you were small,\n Guess you’ve been clumsy after all.\n Too many times you touched the wires,\n And felt the shocks that sparked like fires.\n"
+   }
+  </script>
+
+  <script>
+    // Utilities
+    const $ = (sel, el = document) => el.querySelector(sel);
+
+    const dataEl = document.getElementById('lyrics-data');
+    let data = { title: 'Paroles', artist: '', lyrics: '' };
+    try { data = JSON.parse(dataEl.textContent.trim()); } catch(e) { console.warn('JSON invalide:', e); }
+
+    // Populate header
+    $('#title').textContent = data.title || 'Titre de la chanson';
+    $('#artist').textContent = data.artist || '';
+
+    // Render lyrics: split on blank lines for verses; preserve lines
+    const container = document.getElementById('lyricsContainer');
+    function renderLyrics(text) {
+      container.innerHTML = '';
+      const verses = String(text || '').replace(/\r\n?/g, '\n').split(/\n\s*\n/);
+      let lineCount = 0;
+      for (const v of verses) {
+        const verseEl = document.createElement('div');
+        verseEl.className = 'verse';
+        v.split('\n').forEach(line => {
+          lineCount += 1;
+          const p = document.createElement('p');
+          p.className = 'line';
+          p.dataset.n = lineCount;
+          p.textContent = line.length ? line : '\u00A0'; // keep empty lines visible
+          verseEl.appendChild(p);
+        });
+        container.appendChild(verseEl);
+      }
+    }
+
+    renderLyrics(data.lyrics);
+
+    // Controls: font size
+    let fs = 1.1; // rem
+    const setFS = v => { fs = Math.max(.8, Math.min(2.2, v)); container.style.setProperty('--fs', fs + 'rem'); };
+    $('#bPlus').addEventListener('click', () => setFS(fs + .1));
+    $('#bMinus').addEventListener('click', () => setFS(fs - .1));
+
+    // Line numbers toggle
+    let numbered = true;
+    const updateNumbering = () => container.classList.toggle('numbered', numbered);
+    updateNumbering();
+    $('#toggleNums').addEventListener('click', () => { numbered = !numbered; updateNumbering(); });
+
+    // Theme toggle (light/dark)
+    const toggleThemeBtn = document.getElementById('toggleTheme');
+    toggleThemeBtn.addEventListener('click', () => {
+      // Simple invert via CSS variables swap
+      const isDark = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() === '#0b0c0f';
+      if (isDark) {
+        document.documentElement.style.setProperty('--bg', '#f7f7fb');
+        document.documentElement.style.setProperty('--fg', '#111827');
+        document.documentElement.style.setProperty('--muted', '#6b7280');
+        document.documentElement.style.setProperty('--card', '#ffffff');
+        document.documentElement.style.setProperty('--shadow', '0 10px 30px rgba(2,8,23,.06)');
+      } else {
+        document.documentElement.style.setProperty('--bg', '#0b0c0f');
+        document.documentElement.style.setProperty('--fg', '#e6e7ea');
+        document.documentElement.style.setProperty('--muted', '#9aa0a6');
+        document.documentElement.style.setProperty('--card', '#121318');
+        document.documentElement.style.setProperty('--shadow', '0 10px 30px rgba(0,0,0,.35)');
+      }
+    });
+
+    // Print
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+    // Search & highlight (basic incremental find)
+    const searchInput = document.getElementById('search');
+    let results = []; let idx = -1;
+
+    function clearMarks() {
+      container.querySelectorAll('mark').forEach(m => {
+        const parent = m.parentNode; parent.replaceChild(document.createTextNode(m.textContent), m); parent.normalize();
+      });
+    }
+
+    function highlight(term) {
+      clearMarks(); results = []; idx = -1;
+      if (!term) return;
+      const rx = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      container.querySelectorAll('.line').forEach(node => {
+        const parts = node.textContent.split(rx);
+        if (parts.length === 1) return;
+        const frag = document.createDocumentFragment();
+        let m; let lastIndex = 0;
+        while ((m = rx.exec(node.textContent)) !== null) {
+          const before = node.textContent.slice(lastIndex, m.index);
+          if (before) frag.appendChild(document.createTextNode(before));
+          const mk = document.createElement('mark');
+          mk.textContent = m[0];
+          frag.appendChild(mk);
+          results.push(mk);
+          lastIndex = m.index + m[0].length;
+        }
+        const after = node.textContent.slice(lastIndex);
+        if (after) frag.appendChild(document.createTextNode(after));
+        node.replaceChildren(frag);
+      });
+    }
+
+    function focusResult(n) {
+      if (!results.length) return;
+      idx = (n + results.length) % results.length;
+      results[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      results[idx].animate([
+        { transform: 'scale(1.0)' },
+        { transform: 'scale(1.06)' },
+        { transform: 'scale(1.0)' }
+      ], { duration: 350, easing: 'ease' });
+    }
+
+    searchInput.addEventListener('input', (e) => highlight(e.target.value.trim()));
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { focusResult(idx + 1); }
+    });
+  </script>
+</body>
+</html>

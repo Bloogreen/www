@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sparks</title>
+  <style>
+    body {
+      background-image: url('fondfull.jpg');
+      background-size: cover;       /* pour que l'image remplisse tout l'espace */
+      background-position: center;  /* centrer l'image */
+      background-repeat: no-repeat; /* éviter les répétitions */
+      background-attachment: fixed; /* optionnel : effet de parallaxe */
+      font-family: sans-serif;
+      margin: 0;
+    }
+
+    header {
+      color: white;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+    }
+
+    h3 {
+      font-size: 140%;
+    }
+
+    .adesc {
+      font-size: 120%;
+      text-shadow: 1px 1px #005555;
+    }
+
+    .avatar {
+      width: 100px;
+      border-radius: 50%;
+    }
+    .song {
+      display: flex;
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      margin: 20px;
+      border-radius: 8px;
+      align-items: flex-start;
+    }
+
+    .song img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      margin-right: 20px;
+      border-radius: 4px;
+    }
+
+    .song-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .song-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .song-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .link-bubble:hover::after,
+    .link-bubble:focus::after {
+      content: "Recherchez directement sur votre site de streaming si le lien n'apparait pas encore sur la page suivante";
+      position: absolute;
+      padding: 5px 10px;
+      background: #008080;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      transform: translate(-50%, -100%);
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="avatar.jpg" class="avatar" />
+  <h1>Sparks</h1>
+</header>
+
+<main>
+  <div class="song-list">
+        <div class="song"><h3><a href="calves-on-fire.html">Calves On Fire</a> </h3></div>
+        <div class="song"><h3><a href="drawings-in-the-sand.html">Drawings In The Sand</a> </h3></div>
+        <div class="song"><h3><a href="the-revolution.html">The Revolution</a> </h3></div>
+        <div class="song"><h3><a href="canadian.html">Canadian, Never American</a> </h3></div>
+        <div class="song"><h3><a href="get-out-cousin.html">Get Out, Cousin</a> </h3></div>
+        <div class="song"><h3><a href="lemming-en.html">Lemming</a> </h3></div>
+        <div class="song"><h3><a href="you-dont-deserve-this.html">You Don't Deserve This</a> </h3></div>
+        <div class="song"><h3><a href="what-can-i-do.html">What Can I Do</a> </h3></div>
+        <div class="song"><h3><a href="my-place.html">My Place In All That</a> </h3></div>
+        <div class="song"><h3><a href="dumbass.html">Dumbass In The Dark</a> </h3></div>
+  </div>
+  </div>
+</main>
+
+</body>
+</html>
+
