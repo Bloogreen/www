@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bloogreen - Player</title>
+  <style>
+    body {
+      background-image: url('fondfull.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: sans-serif;
+      margin: 0;
+      color: white;
+      text-align: center;
+    }
+
+    header {
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.2em;
+    }
+
+    h2 {
+      font-size: 2em;
+      color: #ffeecc;
+      text-shadow: 1px 1px #000;
+    }
+
+    .adesc {
+      font-size: 120%;
+      text-shadow: 1px 1px #005555;
+    }
+
+    .song {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.6);
+      color: black;
+      padding: 30px;
+      margin: 40px auto;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    .song img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .backlink {
+      display: inline-block;
+      margin-top: 30px;
+      color: #fff;
+      background: #008080;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .backlink:hover {
+      background: #00aaaa;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="avatar.jpg" class="avatar" style="width:100px;border-radius:50%;" />
+    <h1>Bloogreen</h1>
+    <p class="adesc">Vous pouvez écouter cette chanson ici, mais elle n'est pas disponible sur les sites de streaming</p>
+  </header>
+
+  <main>
+    <div class="song" id="player-container">
+      <img id="cover" src="default.jpg" alt="Pochette de la chanson" />
+      <h2 id="song-title">Chargement...</h2>
+      <audio id="audio-player" controls preload="none">
+        Votre navigateur ne supporte pas l'élément audio.
+      </audio>
+    </div>
+    <a href="http://bloogreen.fr/index.html" class="backlink">← Retour à la liste</a>
+  </main>
+
+  <script>
+    // Fonction pour récupérer le paramètre ?chanson=XXX
+    function getSongName() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("chanson");
+    }
+
+    const songName = getSongName();
+
+    if (songName) {
+      const audio = document.getElementById("audio-player");
+      const title = document.getElementById("song-title");
+      const cover = document.getElementById("cover");
+
+      title.textContent = songName.replace(/_/g, " ");
+      audio.src = "http://bloogreen.free.fr/" + songName + ".mp3";
+
+      // Si la pochette correspondante existe, on la charge
+      const imageUrl = songName + ".jpg";
+      cover.src = imageUrl;
+      cover.onerror = function() {
+        this.src = "default.jpg"; // image par défaut si la pochette est absente
+      };
+    } else {
+      document.getElementById("song-title").textContent = "Aucune chanson spécifiée";
+      document.getElementById("audio-player").style.display = "none";
+    }
+  </script>
+</body>
+</html>
+
