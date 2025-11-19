@@ -90,7 +90,28 @@
 
     mark { background: color-mix(in oklab, var(--accent-2) 35%, transparent); color: inherit; border-radius: 6px; padding: 0 2px; }
 
-    .footer { margin-top: 24px; color: var(--muted); font-size: .9rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      font-style: italic;
+      text-align: right;
+      justify-content: space-between;
+      gap: 12px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .footersav {
+      grid-template-columns: 1fr 1fr 1fr;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: .9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
 
     /* Line numbers (optional toggle) */
     .numbered .line { display: grid; grid-template-columns: 2ch auto; gap: .75ch; }
@@ -115,6 +136,7 @@
       <main class="lyrics" id="lyricsContainer" aria-label="Paroles de la chanson"></main>
 
       <div class="footer">
+	Pour Louise
       </div>
     </div>
   </div>
