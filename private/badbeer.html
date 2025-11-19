@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloogreen</title>
+  <style>
+    body {
+      background-image: url('../fondfull.jpg');
+      background-size: cover;       /* pour que l'image remplisse tout l'espace */
+      background-position: center;  /* centrer l'image */
+      background-repeat: no-repeat; /* éviter les répétitions */
+      background-attachment: fixed; /* optionnel : effet de parallaxe */
+      font-family: sans-serif;
+      margin: 0;
+    }
+
+    header {
+      color: white;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-shadow: 2px 2px #005555;
+    }
+
+    h2 {
+      color: white;
+      font-size: 2em;
+      text-align: center;
+      text-shadow: 1px 1px #005555;
+    }
+
+    h3 {
+      font-size: 140%;
+      text-shadow: 1px 1px #005555;
+    }
+
+    .adesc {
+      font-size: 120%;
+      text-shadow: 1px 1px #005555;
+    }
+
+    .adescbody {
+      font-size: 120%;
+      text-shadow: 1px 1px #005555;
+      color: white;
+      padding: 40px;
+      text-align: center;
+    }
+
+
+    .avatar {
+      width: 100px;
+      border-radius: 50%;
+    }
+    .song {
+      display: flex;
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      margin: 20px;
+      border-radius: 8px;
+      align-items: flex-start;
+    }
+
+    .song img {
+
+      height: 110px;
+      object-fit: cover;
+      margin-right: 20px;
+      border-radius: 4px;
+    }
+
+    .song img.smiley-size {
+
+      height: 40px;
+      object-fit: cover;
+      margin-right: 20px;
+      border-radius: 4px;
+    }
+
+    .song-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .song-header {
+      display: grid;
+      align-items: center;
+      grid-template-areas: 'stitle . . .';
+      gap: 12px;
+    }
+
+    .song-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .link-bubble:hover::after,
+    .link-bubble:focus::after {
+      content: "Recherchez directement sur votre site de streaming si le lien n'apparait pas encore sur la page suivante";
+      position: absolute;
+      padding: 5px 10px;
+      background: #008080;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      transform: translate(-50%, -100%);
+    }
+
+    .button-home {
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 400px) {
+      h1 { font-size: 1.6em; }
+      h2 { font-size: 1.2em; }
+      .adesc { font-size: 1em; }
+      .song { margin: 5px; padding: 5px; }
+      .song-title { grid-area: stitle; }
+      .song-list { gap: 5px; padding: 5px; }
+      .song-header { gap: 5px; grid-template-areas: 'stitle stitle stitle'; }
+      .song img { height: 80px; width: 80px; }
+      .song img.smiley-size { height: 20px; width: 20px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="http://bloogreen.fr">
+    <img src="../avatar.jpg" class="avatar" />
+  </a>
+  <h1>Bloogreen</h1>
+  <p class="adesc">Ni chanteur ni musicien, j'écris des textes et j'utilise l'Intelligence Artificielle pour en faire des chansons<br/>
+    Retrouvez moi sur toutes les plateformes de streaming: <a href="https://www.deezer.com/us/artist/336127601">Deezer</a>, <a href="https://open.spotify.com/artist/0PWRukD1EmxjLbJ13bVyCl">Spotify</a>, <a href="https://www.youtube.com/channel/UCczmIJm21Vmc2s69qbp0OoQ">Youtube</a>, <a href="https://music.apple.com/us/artist/bloogreen/1826870560">Apple Music</a>, <a href="https://music.amazon.com/artists/B0FHN7YJQW/bloogreen">Amazon music</a>...  </p>
+
+  <p class="adesc">I'm neither a singer nor a musician, but I write lyrics and use artificial intelligence to turn them into songs.<br/>
+    Find me on all streaming platforms: <a href="https://www.deezer.com/us/artist/336127601">Deezer</a>, <a href="https://open.spotify.com/artist/0PWRukD1EmxjLbJ13bVyCl">Spotify</a>, <a href="https://www.youtube.com/channel/UCczmIJm21Vmc2s69qbp0OoQ">Youtube</a>, <a href="https://music.apple.com/us/artist/bloogreen/1826870560">Apple Music</a>, <a href="https://music.amazon.com/artists/B0FHN7YJQW/bloogreen">Amazon music</a> and more. <br/></p>
+</header>
+
+<main>
+
+
+  <div>
+    <h2>Rubrique chansons "privées": non diffusées sur les sites de streaming</h2>
+  </div>
+
+  <div class="song-list">
+    <div class="song">
+      <a href="http://bloogreen.free.fr/badbeer.html" target="_blank" rel="noopener noreferrer">
+        <img src="BadBeer.jpg" alt="Pochette de la chanson Bad Beer" width="100">
+      </a>
+      <div class="song-info">
+        <div class="song-header">
+          <h3 class="song-title">Bad Beer</h3>
+          <a class="link" href="http://bloogreen.free.fr/play.html?chanson=BadBeer" target="_blank" rel="noopener noreferrer">
+            <button>🎧 Écouter</button>
+          </a>
+          <a href="http://bloogreen.free.fr/badbeer.html" target="_blank" rel="noopener noreferrer">
+            <button>Paroles</button>
+          </a>
+          <img src="../smiley_sourire.png" class="smiley-size">
+        </div>
+        <p>Style : Rock humoristique</p>
+      </div>
+    </div>
+
+    <div class="song">
+    </div>
+  </div>
+
+    <div align="center">
+      <a href="http://bloogreen.fr">
+        <button class="button-home"> Page principale </button>
+      </a>
+    </div>
+
+</main>
+
+</body>
+</html>
+
