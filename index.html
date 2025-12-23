@@ -7,12 +7,35 @@
   <style>
     body {
       background-image: url('fondfull.jpg');
-      background-size: cover;       /* pour que l'image remplisse tout l'espace */
-      background-position: center;  /* centrer l'image */
-      background-repeat: no-repeat; /* éviter les répétitions */
-      background-attachment: fixed; /* optionnel : effet de parallaxe */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       font-family: sans-serif;
       margin: 0;
+    }
+
+    /* Style pour le sélecteur de langue */
+    #lang-selector {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 50px;
+      display: flex;
+      gap: 15px;
+      font-size: 1.5rem;
+    }
+
+    #lang-selector span {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #lang-selector span:hover {
+      transform: scale(1.3);
     }
 
     header {
@@ -22,26 +45,22 @@
     }
 
     h1 {
-      font-size: 3em;
+      font-size: 4em;
       text-shadow: 2px 2px #005555;
     }
 
-    h3 {
-      font-size: 140%;
-      text-shadow: 1px 1px #005555;
+    h2 {
+      font-size: 160%;
+      text-shadow: 1px 1px #225555;
+      color: white;
+      text-align: center;
     }
 
     .adesc {
       font-size: 120%;
       text-shadow: 1px 1px #005555;
-    }
-
-    .adescbody {
-      font-size: 120%;
-      text-shadow: 1px 1px #005555;
-      color: white;
-      padding: 40px;
-      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     .avatar {
@@ -109,127 +128,61 @@
       h2 { font-size: 1.2em; }
       .adesc { font-size: 1em; }
       .song { margin: 5px; padding: 5px; }
-      .song-title { grid-area: stitle; }
-      .song-list { gap: 5px; padding: 5px; }
       .song-header { gap: 5px; grid-template-areas: 'stitle stitle stitle'; }
       .song img { height: 80px; width: 80px; }
-      .song img.smiley-size { height: 20px; width: 20px; }
+      #lang-selector { top: 10px; right: 10px; padding: 5px; font-size: 1.2rem; }
     }
-
   </style>
 </head>
 <body>
+
+<div id="lang-selector">
+  <span onclick="switchLang('fr')" title="Français">🇫🇷</span>
+  <span onclick="switchLang('en')" title="English">🇬🇧</span>
+</div>
 
 <header>
   <a class="link" href="https://bloogreen.fr">
     <img src="avatar.jpg" class="avatar" />
   </a>
   <h1>Bloogreen</h1>
-  <p class="adesc">Ni chanteur ni musicien, j'écris des textes et j'utilise l'Intelligence Artificielle pour en faire des chansons<br/>
-    Retrouvez moi sur toutes les plateformes de streaming: <a href="https://www.deezer.com/us/artist/336127601">Deezer</a>, <a href="https://open.spotify.com/artist/0PWRukD1EmxjLbJ13bVyCl">Spotify</a>, <a href="https://www.youtube.com/channel/UCczmIJm21Vmc2s69qbp0OoQ">Youtube</a>, <a href="https://music.apple.com/us/artist/bloogreen/1826870560">Apple Music</a>, <a href="https://music.amazon.com/artists/B0FHN7YJQW/bloogreen">Amazon music</a>...  </p>
-
-  <p class="adesc">I'm neither a singer nor a musician, but I write lyrics and use artificial intelligence to turn them into songs.<br/>
-    Find me on all streaming platforms: <a href="https://www.deezer.com/us/artist/336127601">Deezer</a>, <a href="https://open.spotify.com/artist/0PWRukD1EmxjLbJ13bVyCl">Spotify</a>, <a href="https://www.youtube.com/channel/UCczmIJm21Vmc2s69qbp0OoQ">Youtube</a>, <a href="https://music.apple.com/us/artist/bloogreen/1826870560">Apple Music</a>, <a href="https://music.amazon.com/artists/B0FHN7YJQW/bloogreen">Amazon music</a> and more. <br/></p>
+  
+  <p class="adesc lang-target" 
+     data-fr="Ni chanteur ni musicien, j'écris des textes et j'utilise l'Intelligence Artificielle pour en faire des chansons. Retrouvez moi sur toutes les plateformes de streaming : "
+     data-en="I'm neither a singer nor a musician, but I write lyrics and use artificial intelligence to turn them into songs. Find me on all streaming platforms: ">
+    Ni chanteur ni musicien, j'écris des textes et j'utilise l'Intelligence Artificielle pour en faire des chansons. Retrouvez moi sur toutes les plateformes de streaming :
+  </p>
+  <p class="adesc">
+    <a href="https://www.deezer.com/us/artist/336127601">Deezer</a>, 
+    <a href="https://open.spotify.com/artist/0PWRukD1EmxjLbJ13bVyCl">Spotify</a>, 
+    <a href="https://www.youtube.com/channel/UCczmIJm21Vmc2s69qbp0OoQ">Youtube</a>, 
+    <a href="https://music.apple.com/us/artist/bloogreen/1826870560">Apple Music</a>, 
+    <a href="https://music.amazon.com/artists/B0FHN7YJQW/bloogreen">Amazon music</a>...
+  </p>
 </header>
 
 <main>
-  <div class="song-list">
-  <div class="song">
-    <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/get-out-cousin" target="_blank" rel="noopener noreferrer">
-      <img src="GetOutCousin.jpg" alt="Pochette de la chanson" width="100">
-    </a>
-    <div class="song-info">
-      <div class="song-header">
-        <h3 class="song-title">Get Out, Cousin</h3>
-        <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/get-out-cousin" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
-        </a>
-        <a href="get-out-cousin.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
-        </a>
-        <img src="smiley_triste.png" class="smiley-size">
-      </div>
-      <p>Style : Blues</p>
-    </div>
-  </div>
-
-  <div class="song">
-    <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/tes-couleurs" target="_blank" rel="noopener noreferrer">
-      <img src="TesCouleurs.jpg" alt="Pochette de la chanson" width="100">
-    </a>
-    <div class="song-info">
-      <div class="song-header">
-        <h3 class="song-title">Tes couleurs</h3>
-        <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/tes-couleurs" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
-        </a>
-        <a href="tes-couleurs.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
-        </a>
-        <img src="smiley_sourire.png" class="smiley-size">
-      </div>
-      <p>Style : Pop-Folk</p>
-    </div>
-  </div>
-  </div>
+  <h2 class="lang-target" data-fr="Chansons engagées, contestataires" data-en="Protest and Socially Engaged Songs">
+    Chansons engagées, contestataires
+  </h2>
 
   <div class="song-list">
   <div class="song">
-    <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/canadien-jamais-amricain-" target="_blank" rel="noopener noreferrer">
-      <img src="canadien.jpeg" alt="Pochette de la chanson" width="100">
+    <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/brainless-moron" target="_blank" rel="noopener noreferrer">
+      <img src="BrainlessMoron.jpg" alt="Pochette de la chanson" width="100">
     </a>
     <div class="song-info">
       <div class="song-header">
-        <h3 class="song-title">Canadien, jamais Américain !</h3>
-        <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/canadien-jamais-amricain-" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
+        <h3 class="song-title">Brainless Moron</h3>
+        <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/brainless-moron" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
         </a>
-        <a href="canadien.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
+        <a href="brainless-moron.html" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
         </a>
-        <img src="smiley_colere.png" class="smiley-size">
+        <img src="smiley_jure.png" class="smiley-size">
       </div>
-      <p>Style : Folk-Rock Québecois</p>
-    </div>
-  </div>
-
-  <div class="song">
-    <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/drawings-in-the-sand" target="_blank" rel="noopener noreferrer">
-      <img src="DrawingsInTheSand.jpg" alt="Pochette de la chanson" width="100">
-    </a>
-    <div class="song-info">
-      <div class="song-header">
-        <h3 class="song-title">Drawings In The Sand</h3>
-        <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/drawings-in-the-sand" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
-        </a>
-        <a href="drawings-in-the-sand.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
-        </a>
-        <img src="smiley_triste.png" class="smiley-size">
-      </div>
-      <p>Style : Emotional Folk</p>
-    </div>
-  </div>
-  </div>
-
-  <div class="song-list">
-  <div class="song">
-    <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/les-mollets-en-feu" target="_blank" rel="noopener noreferrer">
-      <img src="LesMolletsEnFeu.jpg" alt="Pochette de la chanson" width="100">
-    </a>
-    <div class="song-info">
-      <div class="song-header">
-        <h3 class="song-title">Les mollets en feu</h3>
-        <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/les-mollets-en-feu" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
-        </a>
-        <a href="les-mollets.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
-        </a>
-        <img src="smiley_sourire.png" class="smiley-size">
-      </div>
-      <p>Style : Sport/Fitness</p>
+      <p>Style : Rap</p>
     </div>
   </div>
 
@@ -241,15 +194,16 @@
       <div class="song-header">
         <h3 class="song-title">Infirmière</h3>
         <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/infirmire" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
         </a>
         <a href="infirmire.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
         </a>
         <img src="smiley_jure.png" class="smiley-size">
       </div>
       <p>Style : Soft Rap</p>
     </div>
+  </div>
   </div>
   </div>
 
@@ -262,10 +216,10 @@
       <div class="song-header">
         <h3 class="song-title">Sombre crétin</h3>
         <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/sombre-crtin" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
         </a>
         <a href="sombre-crtin.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
         </a>
         <img src="smiley_jure.png" class="smiley-size">
       </div>
@@ -281,10 +235,10 @@
       <div class="song-header">
         <h3 class="song-title">La Révolution</h3>
         <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/la-rvolution" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
         </a>
         <a href="la-rvolution.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
         </a>
         <img src="smiley_colere.png" class="smiley-size">
       </div>
@@ -295,45 +249,24 @@
 
   <div class="song-list">
   <div class="song">
-    <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/barre-toi-cousine" target="_blank" rel="noopener noreferrer">
-      <img src="BarreToiCousine1024.jpg" alt="Pochette de la chanson" width="100">
+    <a "link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/canadien-jamais-amricain-" target="_blank" rel="noopener noreferrer">
+      <img src="canadien.jpeg" alt="Pochette de la chanson" width="100">
     </a>
     <div class="song-info">
       <div class="song-header">
-        <h3 class="song-title">Barre toi cousine</h3>
-        <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/barre-toi-cousine" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
+        <h3 class="song-title">Canadien, jamais Américain !</h3>
+        <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/canadien-jamais-amricain-" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
         </a>
-        <a href="barre-toi-cousine.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
+        <a href="canadien.html" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
         </a>
-        <img src="smiley_jure.png" class="smiley-size">
+        <img src="smiley_colere.png" class="smiley-size">
       </div>
-      <p>Style : Punk-Rock</p>
+      <p>Style : Folk-Rock Québecois</p>
     </div>
   </div>
 
-  <div class="song">
-    <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/je-vous-rejoins" target="_blank" rel="noopener noreferrer">
-      <img src="JeVousRejoins.png" alt="Pochette de la chanson" width="100">
-    </a>
-    <div class="song-info">
-      <div class="song-header">
-        <h3 class="song-title">Je vous rejoins</h3>
-        <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/je-vous-rejoins" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
-        </a>
-        <a href="je-vous-rejoins.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
-        </a>
-        <img src="smiley_triste.png" class="smiley-size">
-      </div>
-      <p>Style : Emotional Folk</p>
-    </div>
-  </div>
-  </div>
-
-  <div class="song-list">
   <div class="song">
     <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/lemming" target="_blank" rel="noopener noreferrer">
       <img src="Lemming.jpeg" alt="Pochette de la chanson" width="100">
@@ -342,14 +275,221 @@
       <div class="song-header">
         <h3 class="song-title">Lemming</h3>
         <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/lemming" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
         </a>
         <a href="lemming.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
         </a>
         <img src="smiley_sourire.png" class="smiley-size">
       </div>
       <p>Style : Folk, Engagé</p>
+    </div>
+  </div>
+  </div>
+  
+  <div class="song-list">
+  <div class="song">
+    <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/barre-toi-cousine" target="_blank" rel="noopener noreferrer">
+      <img src="BarreToiCousine1024.jpg" alt="Pochette de la chanson" width="100">
+    </a>
+    <div class="song-info">
+      <div class="song-header">
+        <h3 class="song-title">Barre toi cousine</h3>
+        <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/barre-toi-cousine" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
+        </a>
+        <a href="barre-toi-cousine.html" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
+        </a>
+        <img src="smiley_jure.png" class="smiley-size">
+      </div>
+      <p>Style : Punk-Rock</p>
+    </div>
+  </div>
+
+  <div class="song">
+    <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/canadian-never-american" target="_blank" rel="noopener noreferrer">
+      <img src="CanadianNeverAmerican.jpg" alt="Pochette de la chanson" width="100">
+    </a>
+    <div class="song-info">
+      <div class="song-header">
+        <h3 class="song-title">Canadian, Never American</h3>
+        <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/canadian-never-american" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
+        </a>
+        <a href="canadian.html" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
+        </a>
+        <img src="smiley_colere.png" class="smiley-size">
+      </div>
+      <p>Style : Folk/Rock</p>
+    </div>
+  </div>
+  </div>
+
+  <h2 class="lang-target" data-fr="Chansons motivantes, confiance en soi" data-en="Motivational songs, self-confidence">
+    Chansons motivantes, confiance en soi
+  </h2>
+
+  <div class="song-list">
+    <div class="song">
+      <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/tes-couleurs" target="_blank" rel="noopener noreferrer">
+        <img src="TesCouleurs.jpg" alt="Pochette" width="100">
+      </a>
+      <div class="song-info">
+        <div class="song-header">
+          <h3 class="song-title">Tes couleurs</h3>
+          <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/tes-couleurs" target="_blank" rel="noopener noreferrer">
+            <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
+          </a>
+          <a href="tes-couleurs.html" target="_blank">
+            <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
+          </a>
+          <img src="smiley_sourire.png" class="smiley-size">
+        </div>
+        <p class="lang-target" data-fr="Style : Pop-Folk" data-en="Style: Pop-Folk">Style : Pop-Folk</p>
+      </div>
+    </div>
+  
+    <div class="song">
+    </div>
+  </div>
+
+  <h2 class="lang-target" data-fr="Chansons calmes, ambiance" data-en="Calm Songs, Atmosphere">
+    Chansons calmes, ambiance
+  </h2>
+
+  <div class="song-list">
+    <div class="song">
+      <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/get-out-cousin" target="_blank" rel="noopener noreferrer">
+        <img src="GetOutCousin.jpg" alt="Pochette" width="100">
+      </a>
+      <div class="song-info">
+        <div class="song-header">
+          <h3 class="song-title">Get Out, Cousin</h3>
+          <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/get-out-cousin" target="_blank" rel="noopener noreferrer">
+            <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
+          </a>
+          <a href="get-out-cousin.html" target="_blank">
+            <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
+          </a>
+          <img src="smiley_triste.png" class="smiley-size">
+        </div>
+        <p>Style : Blues</p>
+      </div>
+    </div>
+
+    <div class="song">
+    </div>
+  </div>
+  
+  <h2 class="lang-target" data-fr="Chansons pour les séances d'entrainement sportifs" data-en="Songs for sports training sessions">
+    Chansons pour les séances d'entrainement sportifs
+  </h2>
+
+  <div class="song-list">
+  <div class="song">
+    <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/calves-on-fire" target="_blank" rel="noopener noreferrer">
+      <img src="CalvesOnFire.jpg" alt="Pochette de la chanson" width="100">
+    </a>
+    <div class="song-info">
+      <div class="song-header">
+        <h3 class="song-title">Calves On Fire</h3>
+        <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/calves-on-fire" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
+        </a>
+        <a href="calves-on-fire.html" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
+        </a>
+        <img src="smiley_sourire.png" class="smiley-size">
+      </div>
+      <p>Style : Sport/Fitness</p>
+    </div>
+  </div>
+
+  <div class="song">
+    <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/les-mollets-en-feu" target="_blank" rel="noopener noreferrer">
+      <img src="LesMolletsEnFeu.jpg" alt="Pochette de la chanson" width="100">
+    </a>
+    <div class="song-info">
+      <div class="song-header">
+        <h3 class="song-title">Les mollets en feu</h3>
+        <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/les-mollets-en-feu" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
+        </a>
+        <a href="les-mollets.html" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
+        </a>
+        <img src="smiley_sourire.png" class="smiley-size">
+      </div>
+      <p>Style : Sport/Fitness</p>
+    </div>
+  </div>
+  </div>
+  
+  </div>
+
+  <h2 class="lang-target" data-fr="Chansons tristes, nostalgiques, introspection" data-en="Sad, Nostalgic, Introspective Songs">
+    Chansons tristes, nostalgique, introspection
+  </h2>
+
+  <div class="song-list">
+  <div class="song">
+    <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/drawings-in-the-sand" target="_blank" rel="noopener noreferrer">
+      <img src="DrawingsInTheSand.jpg" alt="Pochette de la chanson" width="100">
+    </a>
+    <div class="song-info">
+      <div class="song-header">
+        <h3 class="song-title">Drawings In The Sand</h3>
+        <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/drawings-in-the-sand" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
+        </a>
+        <a href="drawings-in-the-sand.html" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
+        </a>
+        <img src="smiley_triste.png" class="smiley-size">
+      </div>
+      <p>Style : Emotional Folk</p>
+    </div>
+  </div>
+
+  <div class="song">
+    <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/vice-cach" target="_blank" rel="noopener noreferrer">
+      <img src="ViceCache.jpeg" alt="Pochette de la chanson" width="100">
+    </a>
+    <div class="song-info">
+      <div class="song-header">
+        <h3 class="song-title">Vice caché</h3>
+        <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/vice-cach" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
+        </a>
+        <a href="vice-cach.html" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
+        </a>
+        <img src="smiley_sansbouche.png" class="smiley-size">
+      </div>
+      <p>Style : Pop-Rock</p>
+    </div>
+  </div>
+  </div>
+  
+  <div class="song-list">
+  <div class="song">
+    <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/je-vous-rejoins" target="_blank" rel="noopener noreferrer">
+      <img src="JeVousRejoins.png" alt="Pochette de la chanson" width="100">
+    </a>
+    <div class="song-info">
+      <div class="song-header">
+        <h3 class="song-title">Je vous rejoins</h3>
+        <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/je-vous-rejoins" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
+        </a>
+        <a href="je-vous-rejoins.html" target="_blank" rel="noopener noreferrer">
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
+        </a>
+        <img src="smiley_triste.png" class="smiley-size">
+      </div>
+      <p>Style : Emotional Folk</p>
     </div>
   </div>
 
@@ -361,10 +501,10 @@
       <div class="song-header">
         <h3 class="song-title">Que puis-je faire</h3>
         <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/que-puis-je-faire" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
         </a>
         <a href="que-puis-je-faire.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
         </a>
         <img src="smiley_triste.png" class="smiley-size">
       </div>
@@ -382,10 +522,10 @@
       <div class="song-header">
         <h3 class="song-title">Ma place dans tout ça</h3>
         <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/ma-place-dans-tout-a" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
         </a>
         <a href="ma-place.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
         </a>
         <img src="smiley_sourire.png" class="smiley-size">
       </div>
@@ -401,86 +541,45 @@
       <div class="song-header">
         <h3 class="song-title">Tu ne mérites pas ça</h3>
         <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/tu-ne-mrites-pas-a" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
+          <button class="lang-target" data-fr="🎧 Écouter" data-en="🎧 Listen">🎧 Écouter</button>
         </a>
         <a href="pas-ca.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
+          <button class="lang-target" data-fr="Paroles" data-en="Lyrics">Paroles</button>
         </a>
         <img src="smiley_pleurs.png" class="smiley-size">
       </div>
       <p>Style : Emotional Folk</p>
     </div>
   </div>
-
   </div>
+  </main>
 
-  <div class="song-list">
-  <div class="song">
-    <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/calves-on-fire" target="_blank" rel="noopener noreferrer">
-      <img src="CalvesOnFire.jpg" alt="Pochette de la chanson" width="100">
-    </a>
-    <div class="song-info">
-      <div class="song-header">
-        <h3 class="song-title">Calves On Fire</h3>
-        <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/calves-on-fire" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
-        </a>
-        <a href="calves-on-fire.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
-        </a>
-        <img src="smiley_sourire.png" class="smiley-size">
-      </div>
-      <p>Style : Sport/Fitness</p>
-    </div>
-  </div>
+<script>
+  function switchLang(lang) {
+    // On change l'attribut lang de la page
+    document.documentElement.lang = lang;
+    
+    // On récupère tous les éléments à traduire
+    const elements = document.querySelectorAll('.lang-target');
+    
+    elements.forEach(el => {
+      if (lang === 'en') {
+        el.textContent = el.getAttribute('data-en');
+      } else {
+        el.textContent = el.getAttribute('data-fr');
+      }
+    });
+    
+    // Optionnel: Sauvegarder le choix dans le navigateur
+    localStorage.setItem('preferredLang', lang);
+  }
 
-  <div class="song">
-    <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/canadian-never-american" target="_blank" rel="noopener noreferrer">
-      <img src="CanadianNeverAmerican.jpg" alt="Pochette de la chanson" width="100">
-    </a>
-    <div class="song-info">
-      <div class="song-header">
-        <h3 class="song-title">Canadian, Never American</h3>
-        <a class="link-bubble" href="https://distrokid.com/hyperfollow/bloogreen/canadian-never-american" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
-        </a>
-        <a href="canadian.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
-        </a>
-        <img src="smiley_colere.png" class="smiley-size">
-      </div>
-      <p>Style : Folk/Rock</p>
-    </div>
-  </div>
-  </div>
-
-  <div class="song-list">
-  <div class="song">
-    <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/vice-cach" target="_blank" rel="noopener noreferrer">
-      <img src="ViceCache.jpeg" alt="Pochette de la chanson" width="100">
-    </a>
-    <div class="song-info">
-      <div class="song-header">
-        <h3 class="song-title">Vice caché</h3>
-        <a class="link-bubble" a href="https://distrokid.com/hyperfollow/bloogreen/vice-cach" target="_blank" rel="noopener noreferrer">
-          <button>🎧 Écouter</button>
-        </a>
-        <a href="vice-cach.html" target="_blank" rel="noopener noreferrer">
-          <button>Paroles</button>
-        </a>
-        <img src="smiley_sansbouche.png" class="smiley-size">
-      </div>
-      <p>Style : Pop-Rock</p>
-    </div>
-  </div>
-
-  <div class="song">
-    </div>
-  </div>
-
-  </div>
-
-</main>
+  // Au chargement, vérifier si une langue était déjà choisie
+  window.onload = () => {
+    const savedLang = localStorage.getItem('preferredLang');
+    if (savedLang) switchLang(savedLang);
+  };
+</script>
 
 </body>
 </html>
