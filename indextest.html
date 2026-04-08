@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloogreen</title>
+  <style>
+    body {
+      background-image: url('fondfull.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: sans-serif;
+      margin: 0;
+    }
+
+    #lang-selector {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 50px;
+      display: flex;
+      gap: 15px;
+      font-size: 1.5rem;
+    }
+
+    #lang-selector span {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #lang-selector span:hover {
+      transform: scale(1.3);
+    }
+
+    header {
+      color: white;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 4em;
+      text-shadow: 2px 2px #005555;
+    }
+
+    h2 {
+      font-size: 160%;
+      text-shadow: 1px 1px #225555;
+      color: white;
+      text-align: center;
+    }
+
+    .adesc {
+      font-size: 120%;
+      text-shadow: 1px 1px #005555;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .avatar {
+      width: 100px;
+      border-radius: 50%;
+    }
+
+    .song {
+      display: flex;
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      margin: 20px;
+      border-radius: 8px;
+      align-items: flex-start;
+    }
+
+    .song img {
+      height: 110px;
+      object-fit: cover;
+      margin-right: 20px;
+      border-radius: 4px;
+    }
+
+    .song img.smiley-size {
+      height: 40px;
+      object-fit: cover;
+      margin-right: 20px;
+      border-radius: 4px;
+    }
+
+    .song-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .song-header {
+      display: grid;
+      align-items: center;
+      grid-template-areas: 'stitle . . .';
+      gap: 12px;
+    }
+
+    .song-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .link-bubble:hover::after,
+    .link-bubble:focus::after {
+      content: "Recherchez directement sur votre site de streaming si le lien n'apparait pas encore sur la page suivante";
+      position: absolute;
+      padding: 5px 10px;
+      background: #008080;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      transform: translate(-50%, -100%);
+    }
+
+    @media (max-width: 400px) {
+      h1 { font-size: 1.6em; }
+      h2 { font-size: 1.2em; }
+      .adesc { font-size: 1em; }
+      .song { margin: 5px; padding: 5px; }
+      .song-header { gap: 5px; grid-template-areas: 'stitle stitle stitle'; }
+      .song img { height: 80px; width: 80px; }
+      .song img.smiley-size { height: 20px; width: 20px; }
+      #lang-selector { top: 10px; right: 10px; padding: 5px; font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="lang-selector">
+  <span onclick="switchLang('fr')" title="Français">🇫🇷</span>
+  <span onclick="switchLang('en')" title="English">🇬🇧</span>
+</div>
+
+<header>
+  <a class="link" href="https://bloogreen.fr">
+    <img src="avatar.jpg" class="avatar" />
+  </a>
+  <h1>Bloogreen</h1>
+  
+  <p class="adesc lang-target" 
+     data-fr="Simple auteur n'étant ni chanteur ni musicien, j'utilise l'Intelligence Artificielle pour faire des chansons. Retrouvez moi sur toutes les plateformes de streaming : "
+     data-en="As a songwriter who is neither a singer nor a musician, I use artificial intelligence to write songs. Find me on all streaming platforms: ">
+     Simple auteur n'étant ni chanteur ni musicien, j'utilise l'Intelligence Artificielle pour faire des chansons. Retrouvez moi sur toutes les plateformes de streaming :
+  </p>
+  <p class="adesc">
+    <a href="https://www.deezer.com/us/artist/336127601">Deezer</a>, 
+    <a href="https://open.spotify.com/artist/0PWRukD1EmxjLbJ13bVyCl">Spotify</a>, 
+    <a href="https://www.youtube.com/channel/UCczmIJm21Vmc2s69qbp0OoQ">Youtube</a>, 
+    <a href="https://music.apple.com/us/artist/bloogreen/1826870560">Apple Music</a>, 
+    <a href="https://music.amazon.com/artists/B0FHN7YJQW/bloogreen">Amazon music</a>...
+  </p>
+</header>
+
+<main id="main-content"></main>
+
+<script>
+  // =========================================================
+  // CATALOGUE DES CHANSONS
+  // Pour ajouter ou modifier une chanson, éditez uniquement
+  // cette section. Chaque chanson a un identifiant unique (id).
+  // =========================================================
+  const songs = {
+    "dans-tes-yeux": {
+      title: "Dans tes yeux",
+      img: "DansTesYeux.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/dans-tes-yeux",
+      lyricsUrl: "dans-tes-yeux.html",
+      smiley: "smiley_sourire.png",
+      style: { fr: "Style : Folk", en: "Style: Folk" }
+    },
+    "toujours-en-vol": {
+      title: "Toujours en vol",
+      img: "ToujoursEnVol.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/toujours-en-vol",
+      lyricsUrl: "toujours-en-vol.html",
+      smiley: "smiley_sourire.png",
+      style: { fr: "Style : Pop-Folk", en: "Style: Pop-Folk" }
+    },
+    "tes-couleurs": {
+      title: "Tes couleurs",
+      img: "TesCouleurs.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/tes-couleurs",
+      lyricsUrl: "tes-couleurs.html",
+      smiley: "smiley_sourire.png",
+      style: { fr: "Style : Pop-Folk", en: "Style: Pop-Folk" }
+    },
+    "le-plus-grand-president": {
+      title: "Le plus grand Président",
+      img: "LePlusGrandPresident1024.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/le-plus-grand-prsident",
+      lyricsUrl: "president.html",
+      smiley: "smiley_jure.png",
+      style: { fr: "Style : Punk-Rock", en: "Style: Punk-Rock" }
+    },
+    "les-mollets-en-feu": {
+      title: "Les mollets en feu",
+      img: "LesMolletsEnFeu.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/les-mollets-en-feu",
+      lyricsUrl: "les-mollets.html",
+      smiley: "smiley_sourire.png",
+      style: { fr: "Style : Sport/Fitness", en: "Style: Sport/Fitness" }
+    },
+    "get-out-cousin": {
+      title: "Get Out, Cousin",
+      img: "GetOutCousin.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/get-out-cousin",
+      lyricsUrl: "get-out-cousin.html",
+      smiley: "smiley_triste.png",
+      style: { fr: "Style : Blues", en: "Style: Blues" }
+    },
+    "brainless-moron": {
+      title: "Brainless Moron",
+      img: "BrainlessMoron.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/brainless-moron",
+      lyricsUrl: "brainless-moron.html",
+      smiley: "smiley_jure.png",
+      style: { fr: "Style : Rap", en: "Style: Rap" }
+    },
+    "sombre-cretin": {
+      title: "Sombre crétin",
+      img: "SombreCretin1024.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/sombre-crtin",
+      lyricsUrl: "sombre-crtin.html",
+      smiley: "smiley_jure.png",
+      style: { fr: "Style : Punk-Rock", en: "Style: Punk-Rock" }
+    },
+    "la-revolution": {
+      title: "La Révolution",
+      img: "LaRevolution.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/la-rvolution",
+      lyricsUrl: "la-rvolution.html",
+      smiley: "smiley_colere.png",
+      style: { fr: "Style : Folk, Engagé", en: "Style: Folk, Engaged" }
+    },
+    "canadien-jamais-americain": {
+      title: "Canadien, jamais Américain !",
+      img: "canadien.jpeg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/canadien-jamais-amricain-",
+      lyricsUrl: "canadien.html",
+      smiley: "smiley_colere.png",
+      style: { fr: "Style : Folk-Rock Québecois", en: "Style: Québec Folk-Rock" }
+    },
+    "lemming": {
+      title: "Lemming",
+      img: "Lemming.jpeg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/lemming",
+      lyricsUrl: "lemming.html",
+      smiley: "smiley_sourire.png",
+      style: { fr: "Style : Folk, Engagé", en: "Style: Folk, Engaged" }
+    },
+    "barre-toi-cousine": {
+      title: "Barre toi cousine",
+      img: "BarreToiCousine1024.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/barre-toi-cousine",
+      lyricsUrl: "barre-toi-cousine.html",
+      smiley: "smiley_jure.png",
+      style: { fr: "Style : Punk-Rock", en: "Style: Punk-Rock" }
+    },
+    "canadian-never-american": {
+      title: "Canadian, Never American",
+      img: "CanadianNeverAmerican.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/canadian-never-american",
+      lyricsUrl: "canadian.html",
+      smiley: "smiley_colere.png",
+      style: { fr: "Style : Folk/Rock", en: "Style: Folk/Rock" }
+    },
+    "infirmiere": {
+      title: "Infirmière",
+      img: "Infirmiere.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/infirmire",
+      lyricsUrl: "infirmire.html",
+      smiley: "smiley_jure.png",
+      style: { fr: "Style : Soft Rap", en: "Style: Soft Rap" }
+    },
+    "drawings-in-the-sand": {
+      title: "Drawings In The Sand",
+      img: "DrawingsInTheSand.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/drawings-in-the-sand",
+      lyricsUrl: "drawings-in-the-sand.html",
+      smiley: "smiley_triste.png",
+      style: { fr: "Style : Emotional Folk", en: "Style: Emotional Folk" }
+    },
+    "vice-cache": {
+      title: "Vice caché",
+      img: "ViceCache.jpeg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/vice-cach",
+      lyricsUrl: "vice-cach.html",
+      smiley: "smiley_sansbouche.png",
+      style: { fr: "Style : Pop-Rock", en: "Style: Pop-Rock" }
+    },
+    "je-vous-rejoins": {
+      title: "Je vous rejoins",
+      img: "JeVousRejoins.png",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/je-vous-rejoins",
+      lyricsUrl: "je-vous-rejoins.html",
+      smiley: "smiley_triste.png",
+      style: { fr: "Style : Emotional Folk", en: "Style: Emotional Folk" }
+    },
+    "que-puis-je-faire": {
+      title: "Que puis-je faire",
+      img: "QuePuisJeFaire.png",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/que-puis-je-faire",
+      lyricsUrl: "que-puis-je-faire.html",
+      smiley: "smiley_triste.png",
+      style: { fr: "Style : Emotional Folk", en: "Style: Emotional Folk" }
+    },
+    "ma-place": {
+      title: "Ma place dans tout ça",
+      img: "MaPlace.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/ma-place-dans-tout-a",
+      lyricsUrl: "ma-place.html",
+      smiley: "smiley_sourire.png",
+      style: { fr: "Style : Pop", en: "Style: Pop" }
+    },
+    "tu-ne-merites-pas-ca": {
+      title: "Tu ne mérites pas ça",
+      img: "TuNeMeritesPasCa.png",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/tu-ne-mrites-pas-a",
+      lyricsUrl: "pas-ca.html",
+      smiley: "smiley_pleurs.png",
+      style: { fr: "Style : Emotional Folk", en: "Style: Emotional Folk" }
+    },
+    "laisse-moi-rever": {
+      title: "Laisse moi rêver",
+      img: "LaisseMoiRever.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/laisse-moi-rver",
+      lyricsUrl: "laisse-moi-rever.html",
+      smiley: "smiley_sourire.png",
+      style: { fr: "Style : Pop", en: "Style: Pop" }
+    },
+    "condamne-a-mort": {
+      title: "Condamné à mort",
+      img: "CondamneAMort.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/condamn--mort",
+      lyricsUrl: "condamne.html",
+      smiley: "smiley_sourire.png",
+      style: { fr: "Style : Blues", en: "Style: Blues" }
+    },
+    "calves-on-fire": {
+      title: "Calves On Fire",
+      img: "CalvesOnFire.jpg",
+      listenUrl: "https://distrokid.com/hyperfollow/bloogreen/calves-on-fire",
+      lyricsUrl: "calves-on-fire.html",
+      smiley: "smiley_sourire.png",
+      style: { fr: "Style : Sport/Fitness", en: "Style: Sport/Fitness" }
+    }
+  };
+
+  // =========================================================
+  // STRUCTURE DE LA PAGE PAR RUBRIQUES
+  // Pour ajouter une chanson à une rubrique, ajoutez son id
+  // dans le tableau "songIds" de la rubrique correspondante.
+  // =========================================================
+  const sections = [
+    {
+      heading: { fr: "Dernières sorties", en: "Last songs" },
+      songIds: [
+        ["dans-tes-yeux", "toujours-en-vol"],
+        ["laisse-moi-rever", "le-plus-grand-president"]
+      ]
+    },
+    {
+      heading: { fr: "Pour découvrir", en: "To Discover" },
+      songIds: [
+        ["tes-couleurs", "le-plus-grand-president"],
+        ["les-mollets-en-feu", "get-out-cousin"]
+      ]
+    },
+    {
+      heading: { fr: "Par catégorie: Chansons engagées, contestataires", en: "By Category: Protest and Socially Engaged Songs" },
+      songIds: [
+        ["brainless-moron", "le-plus-grand-president"],
+        ["sombre-cretin", "la-revolution"],
+        ["canadien-jamais-americain", "lemming"],
+        ["barre-toi-cousine", "canadian-never-american"],
+        ["infirmiere", "toujours-en-vol"]
+      ]
+    },
+    {
+      heading: { fr: "Chansons tristes, nostalgiques, introspection", en: "Sad, Nostalgic, Introspective Songs" },
+      songIds: [
+        ["drawings-in-the-sand", "vice-cache"],
+        ["je-vous-rejoins", "que-puis-je-faire"],
+        ["ma-place", "tu-ne-merites-pas-ca"],
+        ["laisse-moi-rever"]
+      ]
+    },
+    {
+      heading: { fr: "Chansons d'humour noir", en: "Dark Humor Songs" },
+      songIds: [
+        ["condamne-a-mort"]
+      ]
+    },
+    {
+      heading: { fr: "Chansons motivantes, confiance en soi", en: "Motivational songs, self-confidence" },
+      songIds: [
+        ["tes-couleurs"]
+      ]
+    },
+    {
+      heading: { fr: "Chansons calmes, ambiance", en: "Calm Songs, Atmosphere" },
+      songIds: [
+        ["get-out-cousin", "dans-tes-yeux"]
+      ]
+    },
+    {
+      heading: { fr: "Chansons pour les séances d'entrainement sportifs", en: "Songs for sports training sessions" },
+      songIds: [
+        ["calves-on-fire", "les-mollets-en-feu"]
+      ]
+    }
+  ];
+
+  // =========================================================
+  // GÉNÉRATION DU HTML (ne pas modifier)
+  // =========================================================
+  function renderSong(id, lang) {
+    const s = songs[id];
+    if (!s) return `<div class="song"><p>Chanson introuvable : ${id}</p></div>`;
+    const styleText = s.style[lang] || s.style.fr;
+    const listenLabel = lang === 'en' ? '🎧 Listen' : '🎧 Écouter';
+    const lyricsLabel = lang === 'en' ? 'Lyrics' : 'Paroles';
+    return `
+      <div class="song" data-song-id="${id}">
+        <a class="link-bubble" href="${s.listenUrl}" target="_blank" rel="noopener noreferrer">
+          <img src="${s.img}" alt="Pochette" width="100">
+        </a>
+        <div class="song-info">
+          <div class="song-header">
+            <h3 class="song-title">${s.title}</h3>
+            <a class="link-bubble" href="${s.listenUrl}" target="_blank" rel="noopener noreferrer">
+              <button>${listenLabel}</button>
+            </a>
+            <a href="${s.lyricsUrl}" target="_blank" rel="noopener noreferrer">
+              <button>${lyricsLabel}</button>
+            </a>
+            <img src="${s.smiley}" class="smiley-size">
+          </div>
+          <p>${styleText}</p>
+        </div>
+      </div>`;
+  }
+
+  function renderAll(lang) {
+    const main = document.getElementById('main-content');
+    let html = '';
+    for (const section of sections) {
+      const headingText = section.heading[lang] || section.heading.fr;
+      html += `<h2>${headingText}</h2>`;
+      for (const row of section.songIds) {
+        html += `<div class="song-list">`;
+        for (const id of row) {
+          html += renderSong(id, lang);
+        }
+        // Pad to 2 items for grid consistency
+        if (row.length < 2) html += `<div class="song"></div>`;
+        html += `</div>`;
+      }
+    }
+    main.innerHTML = html;
+  }
+
+  function switchLang(lang) {
+    document.documentElement.lang = lang;
+    // Translate static elements (header)
+    document.querySelectorAll('.lang-target').forEach(el => {
+      el.textContent = el.getAttribute('data-' + lang) || el.getAttribute('data-fr');
+    });
+    // Re-render dynamic content
+    renderAll(lang);
+    localStorage.setItem('preferredLang', lang);
+  }
+
+  window.onload = () => {
+    const savedLang = localStorage.getItem('preferredLang') || 'fr';
+    renderAll(savedLang);
+    if (savedLang !== 'fr') switchLang(savedLang);
+  };
+</script>
+
+<img src="http://bloogreen.free.fr/stats.php?p=indextest.html" 
+     alt="" 
+     style="display:none;" 
+     referrerpolicy="no-referrer-when-downgrade">
+</body>
+</html>
