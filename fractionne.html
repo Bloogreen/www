@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fractionné</title>
+  <meta name="description" content="Paroles de la chanson." />
+  <style>
+    :root {
+      --bg: #0b0c0f;
+      --fg: #e6e7ea;
+      --muted: #9aa0a6;
+      --card: #121318;
+      --accent: #6ee7b7;
+      --accent-2: #60a5fa;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    @media (prefers-color-scheme: light) {
+      :root {--bg:#f7f7fb; --fg:#111827; --muted:#6b7280; --card:#ffffff; --shadow:0 10px 30px rgba(2,8,23,.06)}
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.18), transparent 50%),
+                  radial-gradient(1200px 600px at 110% 10%, rgba(110,231,183,.18), transparent 50%),
+                  var(--bg);
+      background-image: url('fondfull.jpg');
+      background-size: cover;       /* pour que l'image remplisse tout l'espace */
+      color: var(--fg);
+      font-family: var(--font);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(16px, 4vw, 28px);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+
+    header { display: grid; gap: 8px; }
+    .title { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 800; letter-spacing: .2px; }
+    .artist { color: var(--muted); font-weight: 600; }
+
+    .controls {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px;
+    }
+    .controls input[type="search"] {
+      flex: 1 1 220px;
+      border: 1px solid color-mix(in oklab, var(--fg) 12%, transparent);
+      background: transparent;
+      color: var(--fg);
+      padding: 10px 12px; border-radius: 12px; outline: none;
+    }
+    .btn {
+      border: 1px solid color-mix(in oklab, var(--fg) 12%, transparent);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--card) 95%, var(--fg) 5%), var(--card));
+      color: var(--fg);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+
+    .lyrics {
+      margin-top: 18px;
+      font-size: var(--fs, 1.1rem);
+      white-space: pre-wrap;
+    }
+    .lyrics .verse { margin: 14px 0 18px; }
+    .lyrics .verse p { margin: 0; }
+
+    .meta { display: flex; gap: 8px; align-items: baseline; color: var(--muted); font-size: .95rem; }
+
+    .badge { padding: 4px 10px; border-radius: 999px; background: color-mix(in oklab, var(--accent) 18%, transparent); color: inherit; border: 1px solid color-mix(in oklab, var(--fg) 10%, transparent); }
+
+    mark { background: color-mix(in oklab, var(--accent-2) 35%, transparent); color: inherit; border-radius: 6px; padding: 0 2px; }
+
+    .footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      font-style: italic;
+      text-align: right;
+      justify-content: space-between;
+      gap: 12px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .footersav {
+      grid-template-columns: 1fr 1fr 1fr;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: .9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Line numbers (optional toggle) */
+    .numbered .line { display: grid; grid-template-columns: 2ch auto; gap: .75ch; }
+    .numbered .line::before { content: attr(data-n); opacity: .45; text-align: right; }
+
+    /* Print */
+    @media print {
+      body { background: white; }
+      .card { box-shadow: none; }
+      .controls, .footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="title" id="title">Titre de la chanson</div>
+        <div class="artist" id="artist">Nom de l'artiste</div>
+      </header>
+
+      <main class="lyrics" id="lyricsContainer" aria-label="Paroles de la chanson"></main>
+
+      <div class="footer">
+      </div>
+    </div>
+  </div>
+
+  <!-- Données d'exemple : remplacez le contenu ci-dessous par votre chanson -->
+  <script type="application/json" id="lyrics-data">
+  {
+    "title": "Fractionne",
+    "artist": "Bloogreen",
+    "lyrics": "Aller on est parti\n Pour la séance d'aujourd'hui\n Afin de pouvoir progresser\n Une p'tite séance de fractionné\n \n Il faut juste un chrono\n C'est super rigolo\n J'espère que t'es échauffé(e)\n Car ça va démarrer\n \n Ça y est c'est le moment\n D'accélérer le mouvement\n Un petit coup de speed\n Montre comme tu es rapide\n \n Y'a plus rien à penser\n Faut juste tout donner\n Une bonne accélération\n Un peu plus vite qu'à fond\n \n Après quelques instants\n A un rythme dément\n Tu peux décélérer\n C'est déjà terminé\n \n Première mission accomplie\n Profite de ce répit\n Fais redescendre la pression\n Reprends ta respiration\n \n Pour que tu progresses\n Et pour faire des prouesses\n Le point le plus crucial\n Est le travail mental\n \n De la concentration\n Et de l'abnégation\n Ainsi tu trouveras le moyen\n De poursuivre le chemin\n \n Écoute c'que dit ton corps\n Et répond lui qu'il a tord\n Tu n'es pas là pour te ménager\n Ce que tu veux c'est progresser\n \n Un esprit fort c'est capital\n C'est la base du travail mental\n La fatigue est ton alliée\n Tu dois pouvoir la surpasser\n \n Il faut savoir se faire mal\n Tout en préservant son moral\n Ce moment de soulagement\n Tu l'as mérité vraiment\n \n La seule exception\n Qui justifie la modération\n Est de ne pas te blesser\n Tu n'aurais rien gagné\n \n C'est reparti pour un tour\n Tu peux être fier(fière) de ton parcours\n Repousse encore tes limites\n Peux-tu aller plus vite ?\n \n Aller, tu tiens le bon bout\n Quelques secondes et c'est tout\n Juste un instant à tenir\n Et tu peux ralentir\n \n Le jour de la compétition\n Tu seras dans une super condition\n Tu pourras tous leur sourire\n Sachant que tu vas les pourrir\n"
+
+   }
+  </script>
+
+  <script>
+    // Utilities
+    const $ = (sel, el = document) => el.querySelector(sel);
+
+    const dataEl = document.getElementById('lyrics-data');
+    let data = { title: 'Paroles', artist: '', lyrics: '' };
+    try { data = JSON.parse(dataEl.textContent.trim()); } catch(e) { console.warn('JSON invalide:', e); }
+
+    // Populate header
+    $('#title').textContent = data.title || 'Titre de la chanson';
+    $('#artist').textContent = data.artist || '';
+
+    // Render lyrics: split on blank lines for verses; preserve lines
+    const container = document.getElementById('lyricsContainer');
+    function renderLyrics(text) {
+      container.innerHTML = '';
+      const verses = String(text || '').replace(/\r\n?/g, '\n').split(/\n\s*\n/);
+      let lineCount = 0;
+      for (const v of verses) {
+        const verseEl = document.createElement('div');
+        verseEl.className = 'verse';
+        v.split('\n').forEach(line => {
+          lineCount += 1;
+          const p = document.createElement('p');
+          p.className = 'line';
+          p.dataset.n = lineCount;
+          p.textContent = line.length ? line : '\u00A0'; // keep empty lines visible
+          verseEl.appendChild(p);
+        });
+        container.appendChild(verseEl);
+      }
+    }
+
+    renderLyrics(data.lyrics);
+
+    // Controls: font size
+    let fs = 1.1; // rem
+    const setFS = v => { fs = Math.max(.8, Math.min(2.2, v)); container.style.setProperty('--fs', fs + 'rem'); };
+    $('#bPlus').addEventListener('click', () => setFS(fs + .1));
+    $('#bMinus').addEventListener('click', () => setFS(fs - .1));
+
+    // Line numbers toggle
+    let numbered = true;
+    const updateNumbering = () => container.classList.toggle('numbered', numbered);
+    updateNumbering();
+    $('#toggleNums').addEventListener('click', () => { numbered = !numbered; updateNumbering(); });
+
+    // Theme toggle (light/dark)
+    const toggleThemeBtn = document.getElementById('toggleTheme');
+    toggleThemeBtn.addEventListener('click', () => {
+      // Simple invert via CSS variables swap
+      const isDark = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() === '#0b0c0f';
+      if (isDark) {
+        document.documentElement.style.setProperty('--bg', '#f7f7fb');
+        document.documentElement.style.setProperty('--fg', '#111827');
+        document.documentElement.style.setProperty('--muted', '#6b7280');
+        document.documentElement.style.setProperty('--card', '#ffffff');
+        document.documentElement.style.setProperty('--shadow', '0 10px 30px rgba(2,8,23,.06)');
+      } else {
+        document.documentElement.style.setProperty('--bg', '#0b0c0f');
+        document.documentElement.style.setProperty('--fg', '#e6e7ea');
+        document.documentElement.style.setProperty('--muted', '#9aa0a6');
+        document.documentElement.style.setProperty('--card', '#121318');
+        document.documentElement.style.setProperty('--shadow', '0 10px 30px rgba(0,0,0,.35)');
+      }
+    });
+
+    // Print
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+    // Search & highlight (basic incremental find)
+    const searchInput = document.getElementById('search');
+    let results = []; let idx = -1;
+
+    function clearMarks() {
+      container.querySelectorAll('mark').forEach(m => {
+        const parent = m.parentNode; parent.replaceChild(document.createTextNode(m.textContent), m); parent.normalize();
+      });
+    }
+
+    function highlight(term) {
+      clearMarks(); results = []; idx = -1;
+      if (!term) return;
+      const rx = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      container.querySelectorAll('.line').forEach(node => {
+        const parts = node.textContent.split(rx);
+        if (parts.length === 1) return;
+        const frag = document.createDocumentFragment();
+        let m; let lastIndex = 0;
+        while ((m = rx.exec(node.textContent)) !== null) {
+          const before = node.textContent.slice(lastIndex, m.index);
+          if (before) frag.appendChild(document.createTextNode(before));
+          const mk = document.createElement('mark');
+          mk.textContent = m[0];
+          frag.appendChild(mk);
+          results.push(mk);
+          lastIndex = m.index + m[0].length;
+        }
+        const after = node.textContent.slice(lastIndex);
+        if (after) frag.appendChild(document.createTextNode(after));
+        node.replaceChildren(frag);
+      });
+    }
+
+    function focusResult(n) {
+      if (!results.length) return;
+      idx = (n + results.length) % results.length;
+      results[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      results[idx].animate([
+        { transform: 'scale(1.0)' },
+        { transform: 'scale(1.06)' },
+        { transform: 'scale(1.0)' }
+      ], { duration: 350, easing: 'ease' });
+    }
+
+    searchInput.addEventListener('input', (e) => highlight(e.target.value.trim()));
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { focusResult(idx + 1); }
+    });
+  </script>
+</body>
+</html>
